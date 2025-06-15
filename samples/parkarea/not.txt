@@ -1,0 +1,1 @@
+park area finder , açık alan otoparklarının kameradan alınan görüntü ile boş ve dolu olan alanlarının tespit edilerek kullanıcıya gösterilmesi için özelleştirilmiş bir yazılımdır

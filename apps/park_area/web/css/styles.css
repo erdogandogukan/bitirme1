@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+:root {
+  --animation-speed: 0.2s;
+}
+
+body {
+  margin: 0;
+  width: 100dvw;
+  height: 100dvh;
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(to top right, #1E293B, #000000);
+}
+
+button {
+  min-width: max-content;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  background: transparent;
+  border: 2px solid transparent;
+  margin: 1px;
+  transition: all var(--animation-speed) ease-in-out;
+  background: linear-gradient(to top right, rgb(55, 17, 88), rgb(101, 36, 158));
+}
+
+button.danger {
+  background: linear-gradient(to top right, rgb(83, 4, 4), rgb(255, 0, 0));
+}
+
+
+button:hover {
+  background: white;
+  color:rgb(101, 36, 158);
+  border: 2px solid rgb(101, 36, 158);
+  transition: all var(--animation-speed) ease-in-out;
+}
+
+button.danger:hover {
+  color: red;
+  border: 2px solid red;
+}
+
+input, select {
+  border: 2px solid rgb(101, 36, 158);
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  background-color: white;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.active {
+  background: white;
+  color: rgb(101, 36, 158);
+  border: 2px solid rgb(101, 36, 158);
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.margin-left-auto {
+  margin-left: auto;
+}
+
+.navbar {
+  display: flex;
+  padding: 1rem;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to top right, #371158, #65249E);
+}
+
+.container {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.control-panel{
+  width: 30%;
+  display: flex;
+  padding: 1.5rem;
+  border-radius: 12px;
+  flex-direction: column;
+  background: whitesmoke
+}
+
+.control-panel .input-group{
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+  position: relative;
+}
+
+.panel .panel-title {
+  top: -1.85rem;
+  padding: 0 4px;
+  position: absolute;
+  background-color: whitesmoke;
+}
+
+.content-wrapper {
+  background-color: whitesmoke;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-content .panel {
+  width: 50%;
+}
+
+.input-wrapper {
+  width: 300px;
+  min-width: 300px;
+  height: 27px;
+  max-height: 27px;
+  display: flex; 
+}
+
+.input-group {
+  margin: 0.5rem;
+}
+
+
+.content-area {
+  display: flex;
+  gap: 1rem;
+}
+
+.video-feed {
+  width: 75%;
+  height: 100%;
+  min-width: 600px;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  border-radius: 12px;
+  overflow: hidden;
+  color: white;
+}
+
+.video-feed video, .video-feed img {
+  width: 100%;
+  height: 100%;
+}
+
+.status-panel {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cells {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.cell {
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: flex;
+  margin: 0.5rem;
+  border: 2px solid transparent;
+}
+
+.cell.free {
+  color: #4caf50;
+  border: 2px solid #4caf50;
+  background-color: rgba(76, 175, 80, 0.10);
+}
+
+.cell.free:before {
+  content: '';
+  width: 20px;
+  margin-right: 5px;
+  background: #4caf50;
+  border-radius: 100%;
+}
+
+.cell.occupied {
+  color: #f44336;
+  border: 2px solid #f44336;
+  background-color: rgba(244, 67, 54, 0.10);
+}
+
+.cell.occupied:before {
+  content: '';
+  width: 20px;
+  margin-right: 5px;
+  background: #f44336;
+  border-radius: 100%;
+}
+
+.tab-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-section .tabs {
+  display: flex;
+  margin-left: auto
+}

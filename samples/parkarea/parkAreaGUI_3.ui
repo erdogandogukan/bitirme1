@@ -1,0 +1,648 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.3">
+  <object class="ttk.Panedwindow" id="panedWindowBase" named="True">
+    <property name="height">600</property>
+    <property name="orient">horizontal</property>
+    <property name="width">1000</property>
+    <layout manager="pack">
+      <property name="expand">true</property>
+      <property name="fill">both</property>
+      <property name="side">top</property>
+    </layout>
+    <child>
+      <object class="ttk.Panedwindow.Pane" id="pane_1" named="True">
+        <property name="weight">8</property>
+        <child>
+          <object class="ttk.Notebook" id="notebook1">
+            <property name="cursor">hand2</property>
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tabLayout" named="True">
+                <property name="text" translatable="yes">Görüntü</property>
+                <child>
+                  <object class="ttk.Frame" id="frame8">
+                    <property name="height">200</property>
+                    <property name="width">200</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="pygubu.builder.widgets.scrolledframe" id="scrolledframe1">
+                        <property name="scrolltype">both</property>
+                        <property name="usemousewheel">false</property>
+                        <layout manager="pack">
+                          <property name="expand">true</property>
+                          <property name="fill">both</property>
+                          <property name="side">top</property>
+                        </layout>
+                        <child>
+                          <object class="tk.Canvas" id="canvas1">
+                            <property name="background">#000000</property>
+                            <layout manager="pack">
+                              <property name="expand">true</property>
+                              <property name="fill">both</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Label" id="label2">
+                        <property name="font">{Yu} 12 {}</property>
+                        <property name="foreground">#ff0000</property>
+                        <property name="text" translatable="yes">HATA</property>
+                        <layout manager="pack">
+                          <property name="anchor">s</property>
+                          <property name="ipady">5</property>
+                          <property name="side">left</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tabSelector" named="True">
+                <property name="text" translatable="yes">Alan Tanımlama</property>
+                <child>
+                  <object class="ttk.Frame" id="frame7">
+                    <property name="height">200</property>
+                    <property name="width">200</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="pygubu.builder.widgets.scrolledframe" id="scrolledframe6">
+                        <property name="padding">10</property>
+                        <property name="relief">sunken</property>
+                        <property name="scrolltype">both</property>
+                        <property name="usemousewheel">true</property>
+                        <layout manager="pack">
+                          <property name="expand">true</property>
+                          <property name="fill">both</property>
+                          <property name="padx">5</property>
+                          <property name="pady">5</property>
+                          <property name="side">top</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Labelframe" id="labelframe7">
+                            <property name="height">200</property>
+                            <property name="padding">10</property>
+                            <property name="text" translatable="yes">Örnek görüntü bilgileri</property>
+                            <property name="width">200</property>
+                            <layout manager="pack">
+                              <property name="fill">x</property>
+                              <property name="padx">5</property>
+                              <property name="pady">5</property>
+                              <property name="side">top</property>
+                            </layout>
+                            <child>
+                              <object class="ttk.Label" id="label7" named="True">
+                                <property name="relief">flat</property>
+                                <layout manager="pack">
+                                  <property name="anchor">w</property>
+                                  <property name="side">top</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Label" id="labelSampleInfo" named="True">
+                                <layout manager="pack">
+                                  <property name="anchor">w</property>
+                                  <property name="side">top</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Labelframe" id="labelframe8">
+                            <property name="height">200</property>
+                            <property name="padding">10</property>
+                            <property name="text" translatable="yes">Koordinat dosyası seçiniz</property>
+                            <property name="width">200</property>
+                            <layout manager="pack">
+                              <property name="fill">x</property>
+                              <property name="padx">5</property>
+                              <property name="pady">5</property>
+                              <property name="side">top</property>
+                            </layout>
+                            <child>
+                              <object class="ttk.Entry" id="entrySelectorCoordinateAdress" named="True">
+                                <layout manager="pack">
+                                  <property name="expand">true</property>
+                                  <property name="fill">x</property>
+                                  <property name="padx">5</property>
+                                  <property name="side">left</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Button" id="buttonSelectorCoordinateAdress" named="True">
+                                <property name="command" type="command" cbtype="simple">selectSelectorCoordinateFromFiles</property>
+                                <property name="cursor">hand2</property>
+                                <property name="text" translatable="yes">Dosyalardan seç</property>
+                                <layout manager="pack">
+                                  <property name="ipadx">5</property>
+                                  <property name="ipady">5</property>
+                                  <property name="padx">5</property>
+                                  <property name="side">left</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Labelframe" id="labelframe9">
+                            <property name="height">200</property>
+                            <property name="padding">10</property>
+                            <property name="text" translatable="yes">Yeni koordinat dosyası oluştur</property>
+                            <property name="width">200</property>
+                            <layout manager="pack">
+                              <property name="fill">x</property>
+                              <property name="padx">5</property>
+                              <property name="pady">20</property>
+                              <property name="side">top</property>
+                            </layout>
+                            <child>
+                              <object class="ttk.Label" id="label1">
+                                <property name="text" translatable="yes">oluşturulan yeni dosya boştur. Doldurmak için yukarıdan yeni oluşturduğunuz dosyayı seçiniz.</property>
+                                <layout manager="pack">
+                                  <property name="anchor">w</property>
+                                  <property name="padx">5</property>
+                                  <property name="pady">10</property>
+                                  <property name="side">top</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Labelframe" id="labelframe12">
+                                <property name="height">200</property>
+                                <property name="text" translatable="yes">konum</property>
+                                <property name="width">200</property>
+                                <layout manager="pack">
+                                  <property name="anchor">n</property>
+                                  <property name="expand">true</property>
+                                  <property name="fill">x</property>
+                                  <property name="padx">5</property>
+                                  <property name="pady">5</property>
+                                  <property name="side">left</property>
+                                </layout>
+                                <child>
+                                  <object class="ttk.Entry" id="entryFolderPath" named="True">
+                                    <layout manager="pack">
+                                      <property name="fill">x</property>
+                                      <property name="padx">5</property>
+                                      <property name="pady">5</property>
+                                      <property name="side">top</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="ttk.Button" id="buttonSelectFolderFromFiles" named="True">
+                                    <property name="command" type="command" cbtype="simple">selctFolderFromFiles</property>
+                                    <property name="cursor">hand2</property>
+                                    <property name="text" translatable="yes">Konum seç</property>
+                                    <layout manager="pack">
+                                      <property name="ipadx">5</property>
+                                      <property name="ipady">5</property>
+                                      <property name="padx">5</property>
+                                      <property name="pady">5</property>
+                                      <property name="side">top</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Labelframe" id="labelframe13">
+                                <property name="height">200</property>
+                                <property name="text" translatable="yes">Dosyayı isimlendir</property>
+                                <property name="width">200</property>
+                                <layout manager="pack">
+                                  <property name="anchor">n</property>
+                                  <property name="expand">true</property>
+                                  <property name="fill">x</property>
+                                  <property name="padx">5</property>
+                                  <property name="pady">5</property>
+                                  <property name="side">left</property>
+                                </layout>
+                                <child>
+                                  <object class="ttk.Entry" id="entryFileNaming" named="True">
+                                    <layout manager="pack">
+                                      <property name="fill">x</property>
+                                      <property name="padx">5</property>
+                                      <property name="pady">5</property>
+                                      <property name="side">top</property>
+                                    </layout>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Button" id="button7">
+                                <property name="command" type="command" cbtype="simple">createCoordinateFile</property>
+                                <property name="cursor">hand2</property>
+                                <property name="text" translatable="yes">Oluştur</property>
+                                <layout manager="pack">
+                                  <property name="anchor">n</property>
+                                  <property name="ipadx">5</property>
+                                  <property name="ipady">5</property>
+                                  <property name="padx">5</property>
+                                  <property name="pady">10</property>
+                                  <property name="side">left</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Button" id="BbuttonStartSelector" named="True">
+                        <property name="command" type="command" cbtype="simple">selectorStart</property>
+                        <property name="cursor">hand2</property>
+                        <property name="text" translatable="yes">Başla</property>
+                        <layout manager="pack">
+                          <property name="anchor">n</property>
+                          <property name="ipady">10</property>
+                          <property name="padx">5</property>
+                          <property name="pady">5</property>
+                          <property name="side">left</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Labelframe" id="labelframe1">
+                        <property name="height">200</property>
+                        <property name="text" translatable="yes">Alan ismi seçiniz</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="anchor">n</property>
+                          <property name="side">left</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Entry" id="entrySelectorAreaName" named="True">
+                            <layout manager="pack">
+                              <property name="expand">true</property>
+                              <property name="fill">x</property>
+                              <property name="padx">5</property>
+                              <property name="pady">5</property>
+                              <property name="side">left</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Label" id="label8">
+                            <property name="text" translatable="yes">- buraya hücrelerini seçeceğiniz alanın ismini yazınız.
+- yeni alan oluşturmak için ESC tuşuns basarak pencereyi kapatmalı ve yeni alan ismi girmelisiniz</property>
+                            <layout manager="pack">
+                              <property name="padx">5</property>
+                              <property name="side">left</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tabParkState" named="True">
+                <property name="text" translatable="yes">Park Durumu</property>
+                <child>
+                  <object class="ttk.Frame" id="frame4">
+                    <property name="height">200</property>
+                    <property name="padding">10</property>
+                    <property name="width">200</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="ttk.Entry" id="entry1">
+                        <layout manager="pack">
+                          <property name="anchor">w</property>
+                          <property name="fill">x</property>
+                          <property name="side">top</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Label" id="lableStateImage" named="True">
+                        <layout manager="pack">
+                          <property name="anchor">w</property>
+                          <property name="side">top</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Notebook.Tab" id="tabHelp" named="True">
+                <property name="text" translatable="yes">Yardım</property>
+                <child>
+                  <object class="pygubu.builder.widgets.scrolledframe" id="scrolledframe3">
+                    <property name="scrolltype">both</property>
+                    <property name="usemousewheel">false</property>
+                    <layout manager="pack">
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Panedwindow.Pane" id="pane_2" named="True">
+        <property name="weight">1</property>
+        <child>
+          <object class="ttk.Frame" id="frame_2" named="True">
+            <property name="height">200</property>
+            <property name="width">200</property>
+            <layout manager="pack">
+              <property name="side">top</property>
+            </layout>
+            <child>
+              <object class="pygubu.builder.widgets.scrolledframe" id="scrolledFrameSettings" named="True">
+                <property name="padding">010</property>
+                <property name="scrolltype">both</property>
+                <property name="usemousewheel">true</property>
+                <layout manager="pack">
+                  <property name="expand">true</property>
+                  <property name="fill">both</property>
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Labelframe" id="labelFrame_1" named="True">
+                    <property name="height">200</property>
+                    <property name="padding">10</property>
+                    <property name="text" translatable="yes">Görüntü Boyutu Oranı</property>
+                    <property name="width">200</property>
+                    <layout manager="pack">
+                      <property name="anchor">n</property>
+                      <property name="fill">x</property>
+                      <property name="pady">5</property>
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="ttk.Scale" id="scaleResize" named="True">
+                        <property name="cursor">hand2</property>
+                        <property name="from_">20</property>
+                        <property name="orient">horizontal</property>
+                        <property name="to">200</property>
+                        <property name="value">100</property>
+                        <bind sequence="&lt;B1-Motion&gt;" handler="setResizeValue" add="" />
+                        <layout manager="pack">
+                          <property name="expand">true</property>
+                          <property name="fill">x</property>
+                          <property name="side">left</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Label" id="labelResizeValue" named="True">
+                        <property name="padding">5</property>
+                        <property name="text" translatable="yes">100</property>
+                        <layout manager="pack">
+                          <property name="side">right</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Labelframe" id="labelFrame_3" named="True">
+                    <property name="height">200</property>
+                    <property name="padding">5</property>
+                    <property name="text" translatable="yes">Görüntü ayarları</property>
+                    <property name="width">200</property>
+                    <layout manager="pack">
+                      <property name="anchor">n</property>
+                      <property name="fill">x</property>
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="ttk.Labelframe" id="labelFrame_4" named="True">
+                        <property name="height">200</property>
+                        <property name="text" translatable="yes">Kaynak seçiniz</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="expand">true</property>
+                          <property name="fill">x</property>
+                          <property name="pady">5</property>
+                          <property name="side">top</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Frame" id="frame_1" named="True">
+                            <property name="height">200</property>
+                            <property name="padding">10</property>
+                            <property name="width">200</property>
+                            <layout manager="pack">
+                              <property name="expand">true</property>
+                              <property name="fill">both</property>
+                              <property name="side">top</property>
+                            </layout>
+                            <child>
+                              <object class="ttk.Radiobutton" id="radioButton_1" named="True">
+                                <property name="command" type="command" cbtype="simple">getSelectedRadio</property>
+                                <property name="cursor">hand2</property>
+                                <property name="text" translatable="yes">Kamera</property>
+                                <property name="value">1</property>
+                                <property name="variable">int:radioButtonVariable</property>
+                                <layout manager="pack">
+                                  <property name="anchor">w</property>
+                                  <property name="pady">5</property>
+                                  <property name="side">top</property>
+                                </layout>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ttk.Radiobutton" id="radioButton_2" named="True">
+                                <property name="command" type="command" cbtype="simple">getSelectedRadio</property>
+                                <property name="cursor">hand2</property>
+                                <property name="text" translatable="yes">Video kaydı</property>
+                                <property name="value">2</property>
+                                <property name="variable">int:radioButtonVariable</property>
+                                <layout manager="pack">
+                                  <property name="anchor">w</property>
+                                  <property name="pady">5</property>
+                                  <property name="side">top</property>
+                                </layout>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Labelframe" id="labelFrame_5" named="True">
+                        <property name="height">200</property>
+                        <property name="padding">10</property>
+                        <property name="text" translatable="yes">Kamera seçiniz</property>
+                        <property name="width">200</property>
+                        <layout manager="pack">
+                          <property name="expand">true</property>
+                          <property name="fill">x</property>
+                          <property name="pady">5</property>
+                          <property name="side">top</property>
+                        </layout>
+                        <child>
+                          <object class="ttk.Label" id="label3">
+                            <property name="text" translatable="yes">Kamera cihazı</property>
+                            <layout manager="pack">
+                              <property name="anchor">w</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Combobox" id="comboBoxCamera" named="True">
+                            <property name="cursor">hand2</property>
+                            <layout manager="pack">
+                              <property name="anchor">w</property>
+                              <property name="expand">true</property>
+                              <property name="fill">x</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Label" id="label6">
+                            <property name="text" translatable="yes">Video adresi</property>
+                            <layout manager="pack">
+                              <property name="anchor">w</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Entry" id="entryVideoAdress" named="True">
+                            <layout manager="pack">
+                              <property name="expand">true</property>
+                              <property name="fill">x</property>
+                              <property name="side">top</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="ttk.Button" id="buttonVideoAdress" named="True">
+                            <property name="command" type="command" cbtype="simple">selectVideoFromFiles</property>
+                            <property name="cursor">hand2</property>
+                            <property name="text" translatable="yes">Dosyalardan seç</property>
+                            <layout manager="pack">
+                              <property name="ipadx">5</property>
+                              <property name="ipady">2</property>
+                              <property name="side">right</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Labelframe" id="labelFrame_6" named="True">
+                    <property name="height">200</property>
+                    <property name="padding">10</property>
+                    <property name="text" translatable="yes">koordinat dosyasını seçiniz</property>
+                    <property name="width">200</property>
+                    <layout manager="pack">
+                      <property name="anchor">n</property>
+                      <property name="fill">x</property>
+                      <property name="side">top</property>
+                    </layout>
+                    <child>
+                      <object class="ttk.Entry" id="entryCoordinateAdress" named="True">
+                        <layout manager="pack">
+                          <property name="expand">true</property>
+                          <property name="fill">x</property>
+                          <property name="pady">5</property>
+                          <property name="side">top</property>
+                        </layout>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="ttk.Button" id="buttonCoordinateAdress" named="True">
+                        <property name="command" type="command" cbtype="simple">selectCoordinateFromFiles</property>
+                        <property name="cursor">hand2</property>
+                        <property name="text" translatable="yes">Dosyalardan seç</property>
+                        <layout manager="pack">
+                          <property name="ipadx">5</property>
+                          <property name="ipady">2</property>
+                          <property name="side">right</property>
+                        </layout>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Button" id="buttonStart" named="True">
+                    <property name="command" type="command" cbtype="simple">startVideo</property>
+                    <property name="cursor">hand2</property>
+                    <property name="text" translatable="yes">Başlat</property>
+                    <layout manager="pack">
+                      <property name="anchor">n</property>
+                      <property name="fill">x</property>
+                      <property name="ipadx">10</property>
+                      <property name="ipady">10</property>
+                      <property name="padx">10</property>
+                      <property name="pady">5</property>
+                      <property name="side">left</property>
+                    </layout>
+                  </object>
+                </child>
+                <child>
+                  <object class="ttk.Button" id="buttonStop" named="True">
+                    <property name="command" type="command" cbtype="simple">stopVideo</property>
+                    <property name="cursor">hand2</property>
+                    <property name="text" translatable="yes">Durdur</property>
+                    <layout manager="pack">
+                      <property name="anchor">n</property>
+                      <property name="fill">x</property>
+                      <property name="ipadx">10</property>
+                      <property name="ipady">10</property>
+                      <property name="padx">10</property>
+                      <property name="pady">5</property>
+                      <property name="side">right</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="ttk.Frame" id="frame6">
+                <property name="height">200</property>
+                <property name="width">200</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+                <child>
+                  <object class="ttk.Label" id="label5">
+                    <property name="image">assets/omuLogo.PNG</property>
+                    <property name="text" translatable="yes">label5</property>
+                    <layout manager="pack">
+                      <property name="anchor">center</property>
+                      <property name="side">top</property>
+                    </layout>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Araç Sayım Sistemi - Eel</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="/eel.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="sidebar">
+        <h3>Ayarlar</h3>
+        <fieldset>
+          <legend>Kaynak Seçimi</legend>
+          <input
+            type="radio"
+            id="radioKamera"
+            name="videoKaynak"
+            value="camera"
+            checked
+            onchange="updateSourceSelection()"
+          />
+          <label for="radioKamera">Kamera</label>
+          <div id="kameraSecimAlani">
+            <select
+              id="comboBoxCamera"
+              style="width: 100%; margin-top: 5px; margin-bottom: 10px"
+            ></select>
+          </div>
+
+          <input
+            type="radio"
+            id="radioVideo"
+            name="videoKaynak"
+            value="video"
+            onchange="updateSourceSelection()"
+          />
+          <label for="radioVideo">Video Kaydı</label>
+          <div id="videoSecimAlani" style="display: none">
+            <input
+              type="text"
+              id="entryVideoAdress"
+              placeholder="Video dosya yolu..."
+              style="width: calc(100% - 75px); margin-top: 5px"
+            />
+            <button id="browseVideoPathBtn" type="button" style="width: 70px">
+              Gözat...
+            </button>
+          </div>
+          <input
+            type="radio"
+            id="radioIpCamera"
+            name="videoKaynak"
+            value="ip_camera"
+            onchange="updateSourceSelection()"
+          />
+          <label for="radioIpCamera">IP Kamera (RTSP)</label>
+          <div id="ipKameraSecimAlani" style="display: none">
+            <input
+              type="text"
+              id="entryIpCameraUrl"
+              placeholder="rtsp://kullanici:sifre@ipadresi:port/yol"
+              style="width: 100%; margin-top: 5px"
+            />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Sayaç Alanı</legend>
+          <label for="comboBoxSecilenKonum">Aktif Konum Dosyası:</label>
+          <select id="comboBoxSecilenKonum" style="width: 100%"></select>
+        </fieldset>
+
+        <button
+          id="buttonStart"
+          onclick="startProcessing()"
+          class="control-button"
+        >
+          Başlat
+        </button>
+        <button
+          id="buttonStop"
+          onclick="stopProcessing()"
+          class="control-button hidden"
+        >
+          Durdur
+        </button>
+
+        <h3>Görünümler</h3>
+        <button
+          class="view-button active"
+          onclick="openView(event, 'anaGorunum')"
+        >
+          Canlı İzleme & Sayaçlar
+        </button>
+        <button
+          class="view-button"
+          onclick="openView(event, 'sayacTanimlaGorunum')"
+        >
+          Sayaç Alanı Tanımla
+        </button>
+        <button class="view-button" onclick="openView(event, 'analizGorunum')">
+          Veri Analizi
+        </button>
+        <p
+          id="fpsDisplay"
+          style="margin-top: 15px; text-align: center; font-weight: bold"
+        >
+          FPS: 0.0
+        </p>
+      </div>
+
+      <div class="main-content">
+        <div id="anaGorunum" class="view-content active">
+          <div class="video-area">
+            <img id="videoFeed" src="" alt="Video Akışı Bekleniyor..." />
+          </div>
+          <div class="counts-area">
+            <h4>Araç Sayaçları</h4>
+            <p id="labelCountToplam">Toplam : 0</p>
+            <hr />
+            <p
+              class="note"
+              style="font-size: 0.8em; color: #6c757d; font-style: italic"
+            ></p>
+            <p id="labelCountTir">Tır : 0</p>
+            <p id="labelCountKamyon">Kamyon : 0</p>
+            <p id="labelCountOtobus">Otobüs : 0</p>
+            <p id="labelCountAmbulans">Ambulans : 0</p>
+            <p id="labelCountMinibus">Minibüs : 0</p>
+            <p id="labelCountOtomobil">Otomobil : 0</p>
+            <p id="labelCountMotorsiklet">Motorsiklet : 0</p>
+            <p id="labelCountPerson">İnsan (Test): 0</p>
+
+            <hr />
+            <p
+              class="note"
+              style="font-size: 0.8em; color: #6c757d; font-style: italic"
+            ></p>
+          </div>
+        </div>
+
+        <div id="sayacTanimlaGorunum" class="view-content">
+          <h3>Sayaç Alanı Tanımlama</h3>
+          <div class="line-creator-controls">
+            <fieldset class="konum-secimi">
+              <legend>Konum Dosyası Yönetimi</legend>
+              <div>
+                <input
+                  type="radio"
+                  id="radioMevcutKonum"
+                  name="konumSecimi"
+                  value="mevcut"
+                  checked
+                  onchange="toggleKonumDosyasiInputs()"
+                />
+                <label for="radioMevcutKonum"
+                  >Mevcut Konum Dosyası Kullan:</label
+                >
+                <select
+                  id="comboBoxMevcutKonumlar"
+                  onchange="loadSectionDetailsForEditing()"
+                ></select>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="radioYeniKonum"
+                  name="konumSecimi"
+                  value="yeni"
+                  onchange="toggleKonumDosyasiInputs()"
+                />
+                <label for="radioYeniKonum">Yeni Konum Dosyası Oluştur:</label>
+                <input
+                  type="text"
+                  id="entryYeniKonum"
+                  placeholder="yeni_konum_adi (uzantısız)"
+                  disabled
+                />
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Yeni Alan Tanımla (Seçili/Yeni Konum Dosyasına)</legend>
+              <label for="entryNewSectionName">Tanımlanacak Alanın İsmi:</label>
+              <input
+                type="text"
+                id="entryNewSectionName"
+                placeholder="Örn: ana_giris_sayaci"
+              />
+              <button id="buttonStartLineCreation" onclick="startLineCreator()">
+                Çizime Başla (4 Nokta)
+              </button>
+            </fieldset>
+          </div>
+          <div
+            id="lineCreatorFeedContainer"
+            style="
+              display: none;
+              margin-top: 10px;
+              border: 1px dashed blue;
+              padding: 5px;
+              text-align: center;
+            "
+          >
+            <p>Alan tanımlamak için aşağıdaki görüntüye 4 kez tıklayın.</p>
+            <img
+              id="lineCreatorFeed"
+              src=""
+              alt="Alan Tanımlama Çizim Alanı"
+              onclick="handleLineCreatorImageClick(event)"
+            />
+            <div>
+              <button onclick="eel.line_creator_undo_last_point()()">
+                Son Noktayı Geri Al
+              </button>
+              <button onclick="saveLineCreatorArea()">
+                Tanımlanan Alanı Kaydet
+              </button>
+              <button onclick="cancelLineCreatorMode()">
+                Çizim Modunu İptal Et
+              </button>
+            </div>
+          </div>
+          <fieldset style="margin-top: 15px">
+            <legend>Mevcut Alanlar (Seçili Konum Dosyasındaki)</legend>
+            <div id="scrollSectionInfo">
+              <p>Alanları görmek için bir konum dosyası seçin.</p>
+            </div>
+          </fieldset>
+        </div>
+
+        <div id="analizGorunum" class="view-content">
+          <h3>Veri Analizi</h3>
+          <div class="analysis-controls">
+            <fieldset>
+              <legend>Filtreleme İçin Tarih Aralığı</legend>
+              <div>
+                <label for="analizAltTarih">Başlangıç:</label>
+                <input type="date" id="analizAltTarih" />
+                <label>Saat:<select id="analizAltSaat"></select></label>
+                <label>Dakika:<select id="analizAltDakika"></select></label>
+                <label>Saniye:<select id="analizAltSaniye"></select></label>
+              </div>
+              <div style="margin-top: 10px">
+                <label for="analizUstTarih">Bitiş:</label>
+                <input type="date" id="analizUstTarih" />
+                <label>Saat:<select id="analizUstSaat"></select></label>
+                <label>Dakika:<select id="analizUstDakika"></select></label>
+                <label>Saniye:<select id="analizUstSaniye"></select></label>
+              </div>
+            </fieldset>
+            <button
+              id="buttonRunAnalysis"
+              onclick="runAnalysis()"
+              class="control-button"
+              style="background-color: #28a745"
+            >
+              Analizi Başlat ve Rapor Oluştur
+            </button>
+          </div>
+          <div
+            id="analysisResult"
+            style="
+              margin-top: 15px;
+              white-space: pre-wrap;
+              padding: 10px;
+              border: 1px solid #ddd;
+              background-color: #f9f9f9;
+              border-radius: 4px;
+            "
+          >
+            Analiz sonucu ve Excel rapor bilgisi burada görünecek.
+          </div>
+
+          <div
+            class="charts-container"
+            style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 20px"
+          >
+            <div
+              class="chart-wrapper"
+              style="
+                flex: 1 1 45%;
+                min-width: 300px;
+                background-color: #fff;
+                padding: 15px;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <h4 style="text-align: center; margin-bottom: 10px">
+                Saatlik Toplam Geçiş Yoğunluğu (Tüm Alanlar)
+              </h4>
+              <div style="position: relative; height: 250px; width: 100%">
+                <canvas id="saatlikYogunlukChart"></canvas>
+              </div>
+            </div>
+            <div
+              class="chart-wrapper"
+              style="
+                flex: 1 1 45%;
+                min-width: 300px;
+                background-color: #fff;
+                padding: 15px;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <h4 style="text-align: center; margin-bottom: 10px">
+                Günlük Toplam Geçiş Yoğunluğu (Tüm Alanlar)
+              </h4>
+              <div style="position: relative; height: 250px; width: 100%">
+                <canvas id="gunlukYogunlukChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="alanBazliGrafikAlani"
+            style="
+              margin-top: 30px;
+              padding-top: 20px;
+              border-top: 1px solid #ccc;
+            "
+          >
+            <h3>Alan Bazlı Detaylı Grafikler</h3>
+            <div style="margin-bottom: 15px">
+              <label
+                for="alanSecimDropdownForCharts"
+                style="margin-right: 10px; font-weight: bold"
+                >Analiz Alanı Seçin:</label
+              >
+              <select
+                id="alanSecimDropdownForCharts"
+                onchange="alanGrafikleriniGuncelle()"
+                style="padding: 8px; border-radius: 4px; border: 1px solid #ccc"
+              ></select>
+            </div>
+            <div
+              class="charts-container"
+              style="display: flex; flex-wrap: wrap; gap: 20px"
+            >
+              <div
+                class="chart-wrapper"
+                style="
+                  flex: 1 1 30%;
+                  min-width: 280px;
+                  background-color: #fff;
+                  padding: 15px;
+                  border-radius: 5px;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                  display: flex;
+                  flex-direction: column;
+                "
+              >
+                <h5
+                  id="alanSaatlikChartTitle"
+                  style="text-align: center; margin-bottom: 10px"
+                >
+                  Saatlik Yoğunluk
+                </h5>
+                <div style="position: relative; height: 200px; width: 100%">
+                  <canvas id="alanSaatlikChart"></canvas>
+                </div>
+              </div>
+              <div
+                class="chart-wrapper"
+                style="
+                  flex: 1 1 30%;
+                  min-width: 280px;
+                  background-color: #fff;
+                  padding: 15px;
+                  border-radius: 5px;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                  display: flex;
+                  flex-direction: column;
+                "
+              >
+                <h5
+                  id="alanGunlukChartTitle"
+                  style="text-align: center; margin-bottom: 10px"
+                >
+                  Günlük Yoğunluk
+                </h5>
+                <div style="position: relative; height: 200px; width: 100%">
+                  <canvas id="alanGunlukChart"></canvas>
+                </div>
+              </div>
+              <div
+                class="chart-wrapper"
+                style="
+                  flex: 1 1 30%;
+                  min-width: 280px;
+                  background-color: #fff;
+                  padding: 15px;
+                  border-radius: 5px;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                  display: flex;
+                  flex-direction: column;
+                "
+              >
+                <h5
+                  id="alanTasitTipiChartTitle"
+                  style="text-align: center; margin-bottom: 10px"
+                >
+                  Taşıt Tipi Dağılımı
+                </h5>
+                <div style="position: relative; height: 200px; width: 100%">
+                  <canvas id="alanTasitTipiPastaChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="messageBox"
+      style="
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        z-index: 1000;
+        display: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      "
+    ></div>
+    <script src="script.js"></script>
+  </body>
+</html>

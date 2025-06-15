@@ -1,0 +1,14 @@
+otomobil
+minibüs / kamyonet
+kamyon / tır
+motosiklet
+otobüs / midibüs
+
+türlerine göre ayıracak
+loading ekle
+sayıları eşzamanlı göster
+
+thread programming
+hsv kullan
+2 saniyede bir kontrol edbilirsin
+kare sayısına göre
