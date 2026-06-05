@@ -1,62 +1,60 @@
-# Araç Sayım & Otopark Boş Yer Tespit Sistemi
+# Vehicle Counting & Parking Occupancy Detection System
 
-Kullanıcının seçtiği kaynaktan (video, görüntü, IP kamera) gerçek zamanlı araç sayımı (YOLOv8) ve açık otoparklarda doluluk tespiti (piksel analizi) yapan, masaüstü arayüzlü görüntü işleme sistemi.
+A desktop computer vision application that performs real-time vehicle counting (YOLOv8) and parking-occupancy detection (pixel analysis) from a user-selected source (video, image, or IP camera).
 
-## Özellikler
+## Features
 
-### CarCounter (Araç Sayım):
-- YOLOv8 ile her karede araç tespiti
-- Her araca benzersiz ID atayıp takip
-- Aracın merkezi sanal poligon alanına girince, daha önce sayılmadıysa sayaç +1 (çift sayımı engeller)
-- Sonuç arayüze + Excel raporuna
-  
-### ParkArea (Otopark Doluluk):
-- Her park yerinin köşe koordinatları bir kez JSON'a kaydedilir
-- Görüntü gri tonlama + Gauss bulanıklaştırma ile ön işlenir
-- Piksel yoğunluğu ampirik eşikle karşılaştırılır → DOLU/BOŞ
+### CarCounter (Vehicle Counting)
+- Detects vehicles in each frame using YOLOv8
+- Assigns a unique ID to each vehicle and tracks it
+- When a vehicle's center enters a virtual polygon zone, the counter increments by 1 if that ID has not been counted before (prevents double counting)
+- Outputs results to the interface and to an Excel report
 
-## Kullanılan Teknolojiler
-- Python — ana dil
-- YOLOv8 (Ultralytics) — araç tespiti
-- OpenCV — görüntü işleme, piksel analizi
-- lap — araç takibi (ID atama)
-- Eel — masaüstü arayüz (Python + HTML/JS/CSS)
-- CustomTkinter / pygubu — GUI bileşenleri
-- pandas — Excel raporlama
-- matplotlib / seaborn — görselleştirme
+### ParkArea (Parking Occupancy)
+- The corner coordinates of each parking space are saved once to a JSON file
+- The image is preprocessed with grayscale conversion and Gaussian blur
+- Pixel intensity is compared against an empirical threshold → OCCUPIED / EMPTY
 
-## Kurulum ve Çalıştırma
+## Technologies Used
+- Python — main language
+- YOLOv8 (Ultralytics) — vehicle detection
+- OpenCV — image processing, pixel analysis
+- lap — vehicle tracking (ID assignment)
+- Eel — desktop interface (Python + HTML/JS/CSS)
+- CustomTkinter / pygubu — GUI components
+- pandas — Excel reporting
+- matplotlib / seaborn — visualization
+
+## Setup & Run
 
 ```bash
-# Sanal ortam oluştur
+# Create virtual environment
 python -m venv .venv
 
-# Aktifleştir (Windows PowerShell)
+# Activate (Windows PowerShell)
 .venv\Scripts\Activate.ps1
 
-# Aktifleştir (Linux/Mac)
+# Activate (Linux/Mac)
 source .venv/bin/activate
 
-# Bağımlılıkları yükle
+# Install dependencies
 pip install -r requirements.txt
 
-# Uygulamayı başlat
+# Start the application
 python main.py
 ```
 
-
-## Sonuçlar
+## Results
 
 ### CarCounter
-| Yöntem | Sayılan Araç | Fark | Doğruluk |
+| Method | Counted Vehicles | Difference | Accuracy |
 | --- | --- | --- | --- |
-| Manuel Sayım | 152 | - | %100 |
-| CarCounter | 148 | 4 | %97.3 |
+| Manual Count | 152 | - | 100% |
+| CarCounter | 148 | 4 | 97.3% |
 
 ### ParkArea
-| Koşul | Test Edilen | Doğru Tespit | Başarı |
+| Condition | Tested | Correct Detections | Success Rate |
 | --- | --- | --- | --- |
-| Güneşli (gölgesiz) | 50 | 48 | %98 |
-| Parçalı gölgeli | 50 | 45 | %90 |
-| Ortalama | 100 | 93 | %93 |
-
+| Sunny (no shade) | 50 | 48 | 98% |
+| Partial shade | 50 | 45 | 90% |
+| Average | 100 | 93 | 93% |
